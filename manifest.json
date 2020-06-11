@@ -1,6 +1,6 @@
 {
-    "name": "TO-DO List",
-    "short_name": "TO-DO List",
+    "name": "Lista de Tareas",
+    "short_name": "Lista",
     "icons": [],
     "start_url": "/index.html",
     "display": "standalone",
