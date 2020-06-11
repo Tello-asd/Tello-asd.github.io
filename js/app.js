@@ -10,6 +10,15 @@ else{
   console.log('service workers are not supported.');
 }
 
+$(function(){
+    $("#button-wrapper button").click(function(){
+
+        $("#button-wrapper").html('<input type="text" id="input" placeholder="Añadir Tarea..">');
+
+    });
+});
+
+
 // Select the Elements
 const clear = document.querySelector(".clear");
 const dateElement = document.getElementById("date");
