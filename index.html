@@ -16,7 +16,7 @@
   <script>
   if ('serviceWorker' in navigator) {
     try {
-      await navigator.serviceWorkerContainer.register('sw.js');
+      navigator.serviceWorkerContainer.register('sw.js');
     } catch (e) {
       alert('ServiceWorker registration failed. Sorry about that.');
     }
