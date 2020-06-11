@@ -1,7 +1,7 @@
-//const cacheName = 'pwaLista';
+const cacheName = 'pwaLista';
 const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
 self.addEventListener('install', async event => {
-  const cache = await caches.open('pwaLista');
+  const cache = await caches.open(cacheName);
   cache.addAll(staticAssets);
 });
 
@@ -17,12 +17,12 @@ if (/.*(json)$/.test(req.url)) {
   }
 });
 async function cacheFirst(req) {
-  const cache = await caches.open('pwaLista');
+  const cache = await caches.open(cacheName);
   const cachedResponse = await cache.match(req);
   return cachedResponse || networkFirst(req);
 }
 async function networkFirst(req) {
-  const cache = await caches.open('pwaLista');
+  const cache = await caches.open(cacheName);
   try {
     const fresh = await fetch(req);
     cache.put(req, fresh.clone());
