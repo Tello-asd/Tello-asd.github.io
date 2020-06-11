@@ -1,63 +1,24 @@
 const cacheName = 'pwa-conf-v1';
-const staticAssets = ['./','./index.html', './js/app.js', './css/styles.css', './css/font-awesome.css'];
-
-const OFFLINE_VERSION = 1;
-const CACHE_NAME = 'offline';
-// Customize this with a different URL if needed.
-const OFFLINE_URL = 'index.html';
-
-self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    // Setting {cache: 'reload'} in the new request will ensure that the response
-    // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
-    await cache.add(new Request(OFFLINE_URL, {cache: 'reload'}));
-  })());
+const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
+self.addEventListener('install', async event => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(staticAssets);
 });
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    // Enable navigation preload if it's supported.
-    // See https://developers.google.com/web/updates/2017/02/navigation-preload
-    if ('navigationPreload' in self.registration) {
-      await self.registration.navigationPreload.enable();
-    }
-  })());
-
-  // Tell the active service worker to take control of the page immediately.
-  self.clients.claim();
+// Optional: clents.claim() makes the service worker take over the current page
+// instead of waiting until next load. Useful if you have used SW to prefetch content
+// that's needed on other routes. But potentially dangerous as you are still running the
+// previous version of the app, but with new resources.
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
 });
-
-self.addEventListener('fetch', (event) => {
-  // We only want to call event.respondWith() if this is a navigation request
-  // for an HTML page.
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        // First, try to use the navigation preload response if it's supported.
-        const preloadResponse = await event.preloadResponse;
-        if (preloadResponse) {
-          return preloadResponse;
-        }
-
-        const networkResponse = await fetch(event.request);
-        return networkResponse;
-      } catch (error) {
-        // catch is only triggered if an exception is thrown, which is likely
-        // due to a network error.
-        // If fetch() returns a valid HTTP response with a response code in
-        // the 4xx or 5xx range, the catch() will NOT be called.
-        console.log('Fetch failed; returning offline page instead.', error);
-
-        const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(OFFLINE_URL);
-        return cachedResponse;
-      }
-    })());
+self.addEventListener('fetch', event => {
+  const req = event.request;
+if (/.*(json)$/.test(req.url)) {
+    event.respondWith(networkFirst(req));
+  } else {
+    event.respondWith(cacheFirst(req));
   }
-  });
-
-
+});
 async function cacheFirst(req) {
   const cache = await caches.open(cacheName);
   const cachedResponse = await cache.match(req);
