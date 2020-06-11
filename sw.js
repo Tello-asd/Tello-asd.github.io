@@ -1,7 +1,7 @@
-const cacheName = 'pwaLista';
+//const cacheName = 'pwaLista';
 const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
 self.addEventListener('install', async event => {
-  const cache = await caches.open(cacheName);
+  const cache = await caches.open('pwaLista');
   cache.addAll(staticAssets);
 });
 
