@@ -1,5 +1,13 @@
+$(function(){
+    $("#button-wrapper button").click(function(){
+
+        $("#button-wrapper").html('<input type="text" id="input" placeholder="Añadir Tarea..">');
+
+    });
+});
+
 const cacheName = 'pwa-conf-v1';
-const staticAssets = ['./', './index.html', './js/app.js', './styles.css'];
+const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
 self.addEventListener('install', async event => {
   const cache = await caches.open(cacheName);
   await cache.addAll(staticAssets);
