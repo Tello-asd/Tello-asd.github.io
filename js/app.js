@@ -1,4 +1,3 @@
-class PWAConfApp {
 $(function(){
     $("#button-wrapper button").click(function(){
 
@@ -131,11 +130,10 @@ async fetchJSON(url) {
     const res = await fetch(url);
     return res.json();
   }
-}
+
 
 /******************CONNECT TO serviceWorker************************/
-window.addEventListener('load', e => {
-  new PWAConfApp();
+window.addEventListener('load', e => { 
   registerSW();
 });
 
