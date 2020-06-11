@@ -17,12 +17,12 @@ if (/.*(json)$/.test(req.url)) {
   }
 });
 async function cacheFirst(req) {
-  const cache = await caches.open(cacheName);
+  const cache = await caches.open('pwaLista');
   const cachedResponse = await cache.match(req);
   return cachedResponse || networkFirst(req);
 }
 async function networkFirst(req) {
-  const cache = await caches.open(cacheName);
+  const cache = await caches.open('pwaLista');
   try {
     const fresh = await fetch(req);
     cache.put(req, fresh.clone());
