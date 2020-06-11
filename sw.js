@@ -2,7 +2,7 @@ const cacheName = 'pwa-conf-v1';
 const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
 self.addEventListener('install', async event => {
   const cache = await caches.open(cacheName);
-  await cache.addAll(staticAssets);
+  cache.addAll(staticAssets);
 });
 // Optional: clents.claim() makes the service worker take over the current page
 // instead of waiting until next load. Useful if you have used SW to prefetch content
