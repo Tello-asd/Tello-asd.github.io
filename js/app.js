@@ -1,5 +1,5 @@
 if ('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js').then(function(registration){
+  navigator.serviceWorker.register('./sw.js').then(function(registration){
     console.log('service worker registration succeeded:',registration);
   },
 function(error){
@@ -62,7 +62,7 @@ clear.addEventListener("click", function(){
 
 
 
-// add to do function
+// add to do
 function addToDo(toDo, id, done, trash){
 
     if(trash){ return; }
@@ -82,7 +82,7 @@ function addToDo(toDo, id, done, trash){
     list.insertAdjacentHTML(position, item);
 }
 
-// add an item to the list use the enter key
+// add an item to the list
 document.getElementById("buttonSave").addEventListener("click",function(even){
 
     const toDo = input.value;
@@ -98,7 +98,7 @@ document.getElementById("buttonSave").addEventListener("click",function(even){
             trash : false
         });
 
-        // add item to localstorage ( this code must be added where the LIST array is updated)
+        // add item to localstorage
         localStorage.setItem("TODO", JSON.stringify(LIST));
 
         id++;
@@ -136,8 +136,6 @@ list.addEventListener("click", function(event){
         removeToDo(element);
     }
 
-    // add item to localstorage ( this code must be added where the LIST array is updated)
+    // add item to localstorage
     localStorage.setItem("TODO", JSON.stringify(LIST));
 });
-
-/******************CONNECT TO serviceWorker************************/

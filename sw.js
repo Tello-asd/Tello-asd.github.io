@@ -1,13 +1,10 @@
-const cacheName = 'pwa-conf-v1';
+const cacheName = 'pwaLista';
 const staticAssets = ['./', './index.html', './js/app.js', './css/styles.css'];
 self.addEventListener('install', async event => {
   const cache = await caches.open(cacheName);
   cache.addAll(staticAssets);
 });
-// Optional: clents.claim() makes the service worker take over the current page
-// instead of waiting until next load. Useful if you have used SW to prefetch content
-// that's needed on other routes. But potentially dangerous as you are still running the
-// previous version of the app, but with new resources.
+
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
