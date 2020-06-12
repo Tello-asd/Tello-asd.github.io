@@ -3,9 +3,9 @@
     "short_name": "Lista",
     "description": "PWA para tareas",
     "icons": [{
-        "src": "/img/tareas.png",
+        "src": "/img/tareas.jpg",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/jpg"
       }],
     "start_url": "/index.html",
     "display": "standalone",
