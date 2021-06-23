@@ -1,4 +1,4 @@
 # AlexLTM.github.io
- Practicas de la asignatura PROGRAMACIÓN DE APLICACIONES PARA DISPOSITIVOS MÓVILES
+ Labs for the subject programing mobile applications
  
  https://tello-asd.github.io/
